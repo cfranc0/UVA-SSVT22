@@ -8,8 +8,8 @@ sumNaturals' n = sum [1..n]
 sumNaturals :: Integer -> Integer
 sumNaturals n = n*(n+1) `div` 2
 
-testSumNaturals :: Integer -> Bool
-testSumNaturals n = let a = abs n in sumNaturals' a == sumNaturals a
+testSumNaturals :: Positive Integer -> Bool
+testSumNaturals (Positive n) = sumNaturals' n == sumNaturals n
 
 sumSquares' :: Integer -> Integer
 sumSquares' n = sum [k*k | k <- [1..n]]
@@ -17,5 +17,5 @@ sumSquares' n = sum [k*k | k <- [1..n]]
 sumSquares :: Integer -> Integer
 sumSquares n = n*(n+1)*(2*n+1) `div` 6
 
-testSumSquares :: Integer -> Bool
-testSumSquares n = let a = abs n in sumSquares' a == sumSquares a
+testSumSquares :: Positive Integer -> Bool
+testSumSquares (Positive n) = sumSquares' n == sumSquares n
