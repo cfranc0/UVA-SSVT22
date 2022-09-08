@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../pandoc.css" type="text/css" />
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body>
+<h1 id="lab-1-functional-programming-and-some-logic">Lab 1 Functional Programming and (Some) Logic</h1>
+<h3>Important for all SSVT assignments:</h3>
+<ul>
+  <li>Please submit one Haskell file per exercise (only Haskell files will be admitted) per group (one set of answers per group)</li>
+  <li>Name each file in the following format: ExerciseX.hs for exercises, where X is the exercise number eg. Exercise1.hs (note the capital), and the euler problems: EulerX.hs where X is the problem number (for this assignment Euler9.hs, Euler10.hs, Euler49.hs). All your Haskell files need to have a capital first letter for the tests to pass.</li>
+  <li>Add your answers in the form of comments in the respective Exercise file</li>
+  <li>If you are using additional dependencies please indicate so in a comment on top of the file</li>
+  <li>Follow closely the naming conventions indicated by each exercise (some exercises go through automatic testing and it creates an overhead for the TAs if your files dont run)</li>
+  <li><b>Please indicate the time spent on every exercise.</b></li>
+</ul>
+
+<hr />
+<div class="sourceCode">
+  <pre class="sourceCode literate literatehaskell">
+  <code class="sourceCode literatehaskell">
+  <span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Data.List</span>
+  <span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Test.QuickCheck</span>    
+  </code></pre>
+</div>
+<p>Some stuff from the lecture slides:</p>
+<div class="sourceCode">
+<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; prime ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+<span class="ot">&gt;</span> prime n <span class="fu">=</span> n <span class="fu">&gt;</span> <span class="dv">1</span> <span class="fu">&amp;&amp;</span> all (\ x <span class="ot">-&gt;</span> rem n x <span class="fu">/=</span> <span class="dv">0</span>) xs
+<span class="ot">&gt;</span>   <span class="kw">where</span> xs <span class="fu">=</span> takeWhile (\ y <span class="ot">-&gt;</span> y<span class="fu">^</span><span class="dv">2</span> <span class="fu">&lt;=</span> n) primes</code></pre>
+</div>
+<div class="sourceCode">
+<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; primes ::</span> [<span class="dt">Integer</span>]
+<span class="ot">&gt;</span> primes <span class="fu">=</span> <span class="dv">2</span> <span class="fu">:</span> filter prime [<span class="dv">3</span><span class="fu">..</span>] </code></pre>
+</div>
+<p><strong>Useful logic notation</strong></p>
+<div class="sourceCode">
+<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> infix <span class="dv">1</span> <span class="fu">--&gt;</span>
+<span class="ot">&gt;</span>
+<span class="ot">&gt; (--&gt;) ::</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+<span class="ot">&gt;</span> p <span class="fu">--&gt;</span> q <span class="fu">=</span> (not p) <span class="fu">||</span> q
+<span class="ot">&gt;</span>
+<span class="ot">&gt; forall ::</span> [a] <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+<span class="ot">&gt;</span> forall <span class="fu">=</span> flip all</code></pre>
+</div>
+<hr /><ol style="list-style-type: decimal;">
+<li>
+  <p>Redo exercises 2 and 3 of Workshop 1 by writing QuickCheck tests for these statements.</p>
+</li>
+</ol>
+<p><b>Deliverables</b>: Haskell program, indication of time spent.</p>
+<hr /><ol start="2" style="list-style-type: decimal;">
+<li>
+
+  <p>Redo exercise 4 of Workshop 1 and test the property for integer lists of the form <code>[1..n]</code>. You can use <code>subsequences :: [a] -&gt; [[a]]</code> for the list of all subsequences of a given list.</p>
+  <pre><code>  *Lab1&gt; subsequences [1..3]
+    [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]</code></pre>
+    <p>Use <code>length</code> for the size of a list.</p>
+    <pre><code>  *Lab1&gt; length (subsequences [1..3])
+      8
+      *Lab1&gt; length (subsequences [1..4])
+      16
+      *Lab1&gt; length (subsequences [1..5])
+      32</code></pre>
+      <p>Is the property hard to test? If you find that it is, can you given a reason why?</p>
+      <p>Give your thoughts on the following issue: when you perform the test for exercise 4, what are you testing actually? Are you checking a mathematical fact? Or are you testing whether <code>subsequences</code> satisfies a part of its specification? Or are you testing something else still?</p>
+    </li>
+    </ol>
+    <p><b>Deliverables</b>: Haskell program, concise test report, answers to the questions, indication of time spent.</p>
+<hr /><ol start="3" style="list-style-type: decimal;">
+<li>
+  <p>Redo exercise 5 of Workshop 1 and test the property for integer lists of the form <code>[1..n]</code>.</p>
+  <p>Is the property hard to test? If you find that it is, can you given a reason why?</p>
+  <p>Again, give your thoughts on the following issue: when you perform the test for exercise 5, what are you testing actually? Are you checking a mathematical fact? Or are you testing whether <code>perms</code> satisfies a part of its specification? Or are you testing something else still?</p>
+</li>
+</ol>
+<p><b>Deliverables</b>: Haskell program, concise test report, answers to the questions, indication of time spent.</p>
+<hr /><ol start="4" style="list-style-type: decimal;">
+<li>
+  <p>The natural number 13 has the property that it is prime and its reversal, the number 31, is also prime. Write a function that finds all primes &lt; 10000 with this property. Follow this type declaration:</p>
+  <div class="sourceCode">
+    <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; reversibleStream ::</span> <span class="dt">[Integer]</span> 
+    </code></pre></div>
+    
+    <p>To get you started, here is a function for finding the reversal of a natural number:</p>
+    <div class="sourceCode">
+      <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; reversal ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span>
+        <span class="ot">&gt;</span> reversal <span class="fu">=</span> read <span class="fu">.</span> reverse <span class="fu">.</span> show</code></pre>
+      </div>
+      <p>How would you test this function, by the way?</p>
+    </li>
+    </ol>
+  <p><b>Deliverables</b>: Haskell program, concise test report, answer to the question, indication of time spent.</p>   
+<hr /><ol start="5" style="list-style-type: decimal;">
+<li>
+
+  <p>The number <span class="math inline">\(101\)</span> is a prime, and it is also the sum of five consecutive primes, namely <span class="math inline">\(13 + 17 + 19 + 23 + 29\)</span>. Find the smallest prime number that is a sum of <span class="math inline">\(101\)</span> consecutive primes.</p>
+  Follow this type declaration:
+    <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; consecutive101Prime ::</span> <span class="dt">Integer</span> 
+    </code></pre>
+    <p>Do you have to test that your answer is correct? How could this be checked?</p>
+  </li>
+  </ol>
+  <p><b>Deliverables</b>: Haskell program, solution, answer to the questions, indication of time spent.</p>  
+<hr /><ol start="6" style="list-style-type: decimal;">
+<li>
+  <p>Using Haskell to refute a conjecture. Write a Haskell function that can be used to refute the following conjecture. "If <span class="math inline">\(p_1, ..., p_n\)</span> is a list of consecutive primes starting from <span class="math inline">\(2\)</span>, then <span class="math inline">\((p_1 \times \cdots \times p_n) + 1\)</span> is also prime." This can be refuted by means of a counterexample, so your Haskell program should generate counterexamples. 
+  </p>
+  Follow this type declaration:
+  <div class="sourceCode">
+    <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; counterexamples ::</span> <span class="dt"> [([Integer], Integer)]</span> 
+    </code></pre></div>
+    where the <code class="sourceCode literatehaskell"><span class="dt">[Integer]</span></code> is the list of consecutive primes and the <code class="sourceCode literatehaskell"><span class="dt">Integer</span></code> is their sum + 1.
+  </li>
+  </ol>
+  <p><b>Deliverables</b>: Haskell program, indication of time spent.</p>  
+<hr /><ol start="7" style="list-style-type: decimal;">
+<li>
+  <p><strong>Implement and test the Luhn Algorithm</strong></p>
+  <p>The <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn algorithm</a> is a formula for validating credit card numbers.</p>
+  <p>Give an implementation in Haskell. The type declaration should run:</p>
+  <div class="sourceCode"><code class="sourceCode literatehaskell"><span class="ot">&gt;luhn :: </span> <span class="dt">Integer -&gt; Bool</span> 
+  </code></div>
+  <p>This function should check whether an input number satisfies the Luhn formula.</p>
+  <p>Next, use <code>luhn</code> to write functions</p>
+  <div class="sourceCode"><code class="sourceCode literatehaskell"><span class="ot">&gt;isAmericanExpress, isMaster, isVisa :: </span> <span class="dt">Integer -&gt; Bool</span> 
+  </code></div>
+  <p>for checking whether an input number is a valid American Express Card, Master Card, or Visa Card number. Consult Wikipedia for the relevant properties.</p>
+  <p>Finally, design and implement a test for correctness of your implementation.</p>
+</li>
+</ol>
+<p><b>Deliverables</b>: Haskell program, test of correctness, indication of time spent.</p>
+<hr /><ol start="8" style="list-style-type: decimal;">
+<li>
+  <p><strong>Crime Scene Investigation</strong></p>
+  <p>A group of five school children is caught in a crime. One of them has stolen something from some kid they all dislike. The headmistress has to find out who did it. She questions the children, and this is what they say:</p>
+  <p><em>Matthew</em>: Carl didn't do it, and neither did I.</p>
+  <p><em>Peter</em> It was Matthew or it was Jack.</p>
+  <p><em>Jack</em> Matthew and Peter are both lying.</p>
+  <p><em>Arnold</em> Matthew or Peter is speaking the truth, but not both.</p>
+  <p><em>Carl</em> What Arnold says is not true.</p>
+  <p>Their class teacher now comes in. She says: three of these boys always tell the truth, and two always lie. You can assume that what the class teacher says is true. Use Haskell to write a function that computes who was the thief, and a function that computes which boys made honest declarations. Here are some definitions to get you started.</p>
+  <div class="sourceCode">
+    <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> <span class="kw">data</span> <span class="dt">Boy</span> <span class="fu">=</span> <span class="dt">Matthew</span> <span class="fu">|</span> <span class="dt">Peter</span> <span class="fu">|</span> <span class="dt">Jack</span> <span class="fu">|</span> <span class="dt">Arnold</span> <span class="fu">|</span> <span class="dt">Carl</span>
+      <span class="ot">&gt;</span>            <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Show</span>)
+      <span class="ot">&gt;</span>
+      <span class="ot">&gt;</span> boys <span class="fu">=</span> [<span class="dt">Matthew</span>, <span class="dt">Peter</span>, <span class="dt">Jack</span>, <span class="dt">Arnold</span>, <span class="dt">Carl</span>]</code></pre>
+    </div>
+    <p>You should first define a function</p>
+    <div class="sourceCode"><code class="sourceCode literatehaskell"><span class="ot">&gt; accuses :: </span> <span class="dt">Boy -&gt; Boy -&gt; Bool</span></code></div>
+    <p>for encoding whether a boy accuses another boy.</p>
+    <p>Next, define</p>
+    <div class="sourceCode"><code class="sourceCode literatehaskell"><span class="ot">&gt; accusers :: </span> <span class="dt">Boy -&gt; [Boy]</span></code></div>
+    <p>giving the list of accusers of each boy.</p>
+    <p>Finally, define</p>
+<div class="sourceCode"><code class="sourceCode literatehaskell"><span class="ot">&gt; guilty, honest :: </span> <span class="dt">[Boy]</span></code></div>
+<p>to give the list of guilty boys, plus the list of boys who made honest (true) statements.</p>
+<p>If the puzzle is well-designed, then <code>guilty</code> should give a singleton list.</p>
+</li>
+</ol>
+<p><b>Deliverables</b>: Haskell program, indication of time spent.</p>
+<hr />
+<ol start="8" style="list-style-type: decimal;">
+  <li>
+<p><strong>Bonus</strong></p>
+<p>If this was all easy for you, you should next try some of the problems of <a href="http://projecteuler.net">Project Euler</a>. Try problems 9, 10 and 49. Make sure the functions have the following format, where X is the problem's number (eg. euler9): </p>
+<div class="sourceCode"><code class="sourceCode literatehaskell"><span class="ot">&gt; eulerX :: </span> <span class="dt">Integer</span></code></div> 
+</li>
+</ol>
+<hr />
+<div id="refs" class="references"></div>
+</body>
+</html>
