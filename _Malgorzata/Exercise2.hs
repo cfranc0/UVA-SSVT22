@@ -9,3 +9,4 @@ testProperty (Positive n) = length (subsequences [1..n]) == 2^n
 -- because set can't have negative numbers of elements.
 -- It is also hard to test the big numbers, since compiling would take a lot of time (or infinite time).
 -- All QuickCheck test cases were successful.
+-- TODO what do we test here?
