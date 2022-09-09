@@ -19,7 +19,7 @@ luhn :: [Int]-> Bool
 luhn u= (sum[ x `div`10 + x `mod`10 | x <- xx ]) `mod` 10==0
 
 
---We give number 9664711646 as a verified number from the luhn' algorithm valid number generator website in order to test our solution
+--We give number 9664711646 as a verified number from the luhn' algorithm valid number generator website https://www.dcode.fr/luhn-algorithm in order to test our solution
 x= breakch 9664711646
 h=length x
 -- We then use the length of digits list to create onother list with the sequence 2 and 1's in order to be multiplied 
