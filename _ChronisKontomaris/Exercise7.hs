@@ -1,5 +1,5 @@
 import Data.List
-
+--time spent ~2.5 Hours
 --luhn ::  Integer -> Bool
 
 --isAmericanExpress, isMaster, isVisa ::  Integer -> Bool
@@ -8,9 +8,10 @@ import Data.List
 -- For visa cards we need to check that a card  it is 13 or 16 digits and starts with number 4
 --For american express we should check the carrds to be 15 digits and start with number 34 or 37 
 
---Here we implemented a simple solution to get the digits in list from the given card number using the map and show functions
-breakch :: Integer -> [Int]
-breakch ch = map (\x -> read [x] :: Int) (show ch)
+--Here is the implementation of a simple solution to get the digits in list from the given card number using the map and show functions
+-- Intuition for the digits extraction is from a stackoverflow  question : https://stackoverflow.com/questions/3963269/split-a-number-into-its-digits-with-haskell
+digits :: Integer -> [Int]
+digits ch = map (\x -> read [x] :: Int) (show ch)
 
 
 
@@ -20,7 +21,7 @@ luhn u= (sum[ x `div`10 + x `mod`10 | x <- xx ]) `mod` 10==0
 
 
 --We give number 9664711646 as a verified number from the luhn' algorithm valid number generator website https://www.dcode.fr/luhn-algorithm in order to test our solution
-x= breakch 9664711646
+x= digits 9664711646
 h=length x
 -- We then use the length of digits list to create onother list with the sequence 2 and 1's in order to be multiplied 
 y=take h (cycle [2,1])
