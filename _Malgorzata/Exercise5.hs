@@ -19,7 +19,7 @@ consecutive101Prime' (x:xs)
 consecutive101Prime :: Integer
 consecutive101Prime = consecutive101Prime' primes
 
-
+-- Time spent 2h
 -- This solution, doesn't require testing. Functions were provided in laboratory materials.
 -- We see that the function that checks is the number is prime follows the criteria for a prime number:
 -- A number with exactly two factors that is higher than 1.
