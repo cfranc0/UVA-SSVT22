@@ -15,6 +15,7 @@ digits ch = map (\x -> read [x] :: Int) (show ch)
 
 
 
+
 --We created luhn function to take the finalised list of the digits and sum all of them to check if its modulo 10 ( if it is we return true otherwise false)
 luhn :: [Int]-> Bool
 luhn u= (sum[ x `div`10 + x `mod`10 | x <- xx ]) `mod` 10==0
