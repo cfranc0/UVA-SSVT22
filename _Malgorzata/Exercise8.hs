@@ -13,13 +13,13 @@ accuses  Peter name = name == Jack || name == Matthew
 --Implementation of statement  "Jack: Matthew and Peter are both lying"
 accuses Jack name = not (accuses Matthew name) && not (accuses Peter name)
 --Implementation of statement  "Arnold: Matthew or Peter is speaking the truth, but not both."
-accuses Arnold name = (name==Jack || name==Peter) && not(accuses Jack name)  && accuses Matthew name
+accuses Arnold name = not(accuses Jack name) && accuses Matthew name  || not(accuses Matthew name) && accuses Jack name
 --Implementation of statement  "Carl: What Arnold says is not true"
 accuses Carl name= not(accuses Arnold name)
 
 
 
-accusers ::  Boy -> [Boy]
-accusers y = [ x | x <- boys, accuses x y ]
+--accusers ::  Boy -> [Boy]
+
 
 --guilty, honest ::  [Boy]
