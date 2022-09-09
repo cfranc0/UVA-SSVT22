@@ -13,13 +13,17 @@ accuses  Peter name = name == Jack || name == Matthew
 --Implementation of statement  "Jack: Matthew and Peter are both lying"
 accuses Jack name = not (accuses Matthew name) && not (accuses Peter name)
 --Implementation of statement  "Arnold: Matthew or Peter is speaking the truth, but not both."
-accuses Arnold name = not(accuses Jack name) && accuses Matthew name  || not(accuses Matthew name) && accuses Jack name
+accuses Arnold name = (name==Matthew || name==Peter) && not(accuses Peter name) && accuses Matthew name
 --Implementation of statement  "Carl: What Arnold says is not true"
 accuses Carl name= not(accuses Arnold name)
 
 
+-- Here, we look up a person's given name to see if any of the boys have accused him, and we add the name of the accuser.
+accusers ::  Boy -> [Boy]
+accusers y = [ x | x <- boys, accuses x y ]
 
---accusers ::  Boy -> [Boy]
+--guilty :: [Boy]
+--This function should check each boy's accusers and return the name of the boy with three accusers.
 
-
---guilty, honest ::  [Boy]
+--honest ::  [Boy]
+--This function should call accusers function with the value returned from guilty at index 0.  
