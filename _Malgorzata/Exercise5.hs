@@ -8,6 +8,8 @@ prime n = n > 1 && all (\ x -> rem n x /= 0) xs
 primes :: [Integer]
 primes = 2 : filter prime [3..]
 
+-- We calculate the sum of the first 101 prime numbers. 
+-- If the outcome is not a prime number, we take another 101 prime numbers starting from the following prime number.
 consecutive101Prime' :: [Integer] -> Integer
 consecutive101Prime' (x:xs) 
     | prime k = k
@@ -17,6 +19,14 @@ consecutive101Prime' (x:xs)
 consecutive101Prime :: Integer
 consecutive101Prime = consecutive101Prime' primes
 
--- This solution, in my opinion, doesn't require testing. We calculate the sum of the first 101 prime numbers. If the outcome is not a prime number, we start from the following prime number.
--- If we used an external function to generate prime numbers or verify if a number is prime, this would require testing because they may include a problem.
--- However, it is clear that the presented function complies with the criteria for generating prime numbers.
+
+-- This solution, doesn't require testing. Functions were provided in laboratory materials.
+-- We see that the function that checks is the number is prime follows the criteria for a prime number:
+-- A number with exactly two factors that is higher than 1.
+-- Function primes returns numbers t
+
+-- If we used an external function to generate prime numbers or to verify if a number is prime, this would require testing because they could include a bug. 
+-- To determine whether the function that checks if the number is prime complies with the following criteria:
+-- A number with exactly two factors that is higher than 1.
+-- 
+-- However, the functions were provided in the laboratory materials.
