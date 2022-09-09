@@ -11,14 +11,20 @@ accuses Matthew name = not (name==Carl) && not (name==Matthew)
 --Implementation of statement  "Peter: It was Matthew or it was Jack.
 accuses  Peter name =name == Jack || name== Matthew
 --Implementation of statement  "Jack: Matthew and Peter are both lying"
-accuses Jack name =not (accuses (Jack)name) && not (accuses(Matthew) name)
+accuses Jack name =not (accuses (Matthew)name) && not (accuses(Peter) name)
 --Implementation of statement  "Arnold: Matthew or Peter is speaking the truth, but not both."
-accuses Arnold name = (name==Jack || name==Peter) && not(accuses (Jack)name)  && (accuses(Matthew) name)
+accuses Arnold name = (name==Matthew || name==Peter) && not(accuses (Peter)name)  && (accuses(Matthew) name)
 --Implementation of statement  "Carl: What Arnold says is not true"
 accuses Carl name= not(accuses(Arnold) name)
 
 
 
---accusers ::  Boy -> [Boy]
+--Go on all boys to find how many accusers has each one of them
+accusers ::  Boy -> [Boy]
+accusers acc = [ name | name <- boys, accuses name acc ]
 
---guilty, honest ::  [Boy]
+--From the given exercise, if we assume that the teacher is right, we have that three of the boys always tell the truth . 
+--So if we find that three of the boys accuses the same persons as thiefs, than that is true 
+guiltty ::  [Boy]
+guiltty = [name | name <- boys, length (accusers name)==3]
+
