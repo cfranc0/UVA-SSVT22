@@ -23,7 +23,6 @@ consecutive101Prime = consecutive101Prime' primes
 -- This solution, doesn't require testing. Functions were provided in laboratory materials.
 -- We see that the function that checks is the number is prime follows the criteria for a prime number:
 -- A number with exactly two factors that is higher than 1.
--- Function primes returns numbers t
 -- If we used an external function to generate prime numbers or to verify if a number is prime, this would require testing because they could include a bug. 
 
 
