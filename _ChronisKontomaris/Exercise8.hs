@@ -1,3 +1,5 @@
+
+
 data Boy = Matthew | Peter | Jack | Arnold | Carl
                   deriving (Eq,Show)
 
@@ -24,10 +26,14 @@ accusers ::  Boy -> [Boy]
 accusers acc = [ name | name <- boys, accuses name acc ]
 
 --From the given exercise, if we assume that the teacher is right, we have that three of the boys always tell the truth . 
---So if we find that three of the boys accuses the same persons as thiefs, than that is true 
+--So if we find that three of the boys accuses the same persons as thiefs, than that is true.
+-- If some boy has less then three accusers it means that at least one truth telling boy excluded him.
+-- and if some boy has four or more accusers it means there is lier between them.
 guilty ::  [Boy]
 guilty = [name | name <- boys, length (accusers name)==3]
 
 --This function calls accusers function with the value returned from guilty at index 0 since there is only one theft.
 honest ::  [Boy]
 honest = accusers $ head guilty
+
+--Time spent 3h
