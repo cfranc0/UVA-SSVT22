@@ -4,9 +4,11 @@ import Test.QuickCheck
 testProperty :: Positive Integer -> Bool
 testProperty (Positive n) = length (subsequences [1..n]) == 2^n
 
---Time spent 30mins
+-- Time spent 1h
 -- Similarly to exercise 2, the property wouldln't hold true for negative numbers, 
 -- because set can't have negative numbers of elements.
--- It is also hard to test the big numbers, since compiling would take a lot of time (or infinite time).
+-- We are testing part of specification for relatively small numbers
+-- since natural numbers are infinite and it would also take a lot of time
+-- to compute bigger numbers. We are also not testing if the subsequences function
+-- provides correct subsequences.
 -- All QuickCheck test cases were successful.
--- TODO what do we test here?
