@@ -1,6 +1,7 @@
 import Data.List
 import Data.Maybe (fromMaybe)
 import Data.Char
+import Test.QuickCheck
 
 
 --we create two simple Lower case and Upper case lists
