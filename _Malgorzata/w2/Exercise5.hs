@@ -40,11 +40,11 @@ propertyNotEqual xs ys = and [ x `elem` ys && (index x xs /= index x ys) | x <- 
                      | otherwise = 1 + index n xs
 
 
-
--- test report
 testWithOutput' :: [Int] -> [Int] -> IO ()
 testWithOutput' a b = putStrLn ("Testing " ++ show a ++ " and " ++ show b ++ ": " ++ show (isDerangement a b))
 
+-- test report
+isDerangementTest :: IO ()
 isDerangementTest = do                                    -- results :
     testWithOutput' [1,2,3] [1,2,3,4] -- different lengths    False
     testWithOutput' [1,2,3,4] [1,2,3]                      -- False
