@@ -1,9 +1,7 @@
 -- Time spent: 4h
 
 import Data.List
--- import Data.List.Extra
 import Test.QuickCheck
-import System.Random
 
 {-
     The isPermutation function makes sure the two lists are a permutation of
