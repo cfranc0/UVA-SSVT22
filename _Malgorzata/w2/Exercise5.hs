@@ -35,3 +35,14 @@ propertyEqual :: Eq a => [a] -> [a] -> Bool
 propertyEqual xs ys = and [ x `elem` ys && (index x xs /= index x ys) | x <- xs ] where
       index n (x:xs) | n == x = 0
                      | otherwise = 1 + index n xs
+
+testWithOutput' :: [Int] -> [Int] -> IO ()
+testWithOutput' a b = putStrLn ("Testing " ++ show a ++ " and " ++ show b ++ ": " ++ show (isDerangement a b))
+
+isDerangementTest = do                                    -- results :
+    testWithOutput' [1,2,3] [1,2,3,4] -- different lengths    False
+    testWithOutput' [1,2,3,4] [1,2,3]                      -- False
+    testWithOutput' [1,2,3] [3,1,2] -- correct case           True
+    testWithOutput' [1,1,2] [1,2,3] --duplicates              False
+    testWithOutput' [] [1,2,3] -- for empty list              False
+    testWithOutput' [] []                                  -- True
