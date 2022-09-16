@@ -23,6 +23,7 @@ elemIndex' :: Eq a => a -> [a] ->  Int
 elemIndex' x = fromMaybe(-1).elemIndex x
 
 
+--As in exercise 6, we have a function that takes an integer and returns an array list of every digit of the integer using map
 
 digits :: Integer -> [Int]
 digits ch = map (\x -> read [x] :: Int) (show ch)
