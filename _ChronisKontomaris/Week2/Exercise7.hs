@@ -14,7 +14,7 @@ countries_lengths=["28", "24", "20", "28", "22", "28", "16", "20", "29", "22", "
 
 
 
-
+--here we create a simple Upper case alphabet to test the iban numbers
 alphabet=['A' .. 'Z']
 
 --https://hackage.haskell.org/package/base-4.9.0.0/docs/Data-List.html
@@ -28,11 +28,14 @@ elemIndex' x = fromMaybe(-1).elemIndex x
 digits :: Integer -> [Int]
 digits ch = map (\x -> read [x] :: Int) (show ch)
 
-
+--in this function we take an interger array and return the concatenated integer in string 
 concats :: [Int] -> String
 concats []=[]
 concats (y:ys)= show y ++  concats  ys
 
+
+--in this function we replace each letter with their equivalent integer number (for example A=10,B=11 .. etc)
+-- this is implemented by finding each letter index  in the alphabet and return as an that it is added the constant 10   
 replace ::  [Char] -> [Int]
 --case when list is empty
 replace []=[]
@@ -40,7 +43,8 @@ replace(y:ys)  = if ((elemIndex' y alphabet ) > -1) then ((elemIndex' y alphabet
 
 
 
-
+--in this function we rotate one item of the Char list 
+--this function will be used later multiple times to rotate the first 4 characters of the iban number
 rot :: [Char] -> [Char]
 rot []=[]
 rot (x:xs) = xs ++ [x]
@@ -50,6 +54,7 @@ rot (x:xs) = xs ++ [x]
 -- imported Data.Sequence from the hackage.haskell website https://hackage.haskell.org/package/containers-0.6.6/docs/Data-Sequence.html
 -- used isInfixOf in order to find if any of the various countries codes are inside the given iban
 iban="FR7630006000011234567890186"
+--here test that the prefix "FR" of the hardcoded iban string is indeed in the countries_codes list and hence its valid iban in respect to the countries specification
 countries_codes_test :: [[Char]]->Bool
 countries_codes_test []=False
 countries_codes_test (g:gs)= if (isInfixOf g iban) then True  else countries_codes_test gs
@@ -74,8 +79,11 @@ finalint=read finalconcat :: Integer
 
 --Step6 : we perform mod97==1 expression on the iban to see if its valid 
 validation=finalint `mod`97==1
+--if validation variable is true than the iban number is valid 
 
-
-
+--Unfortunately, we were not able to implement the fully working program for multiple iban numbers,
+-- so we used the hardcoded iban string as a test case to showcase our thoughts in this exercise
+-- We would have implemented a function that does all of afformentioned steps and check them for each one of the iban numbers  
 
         
+ 

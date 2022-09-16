@@ -26,7 +26,14 @@ digits ch = map (\x -> read [x] :: Int) (show ch)
 elemIndex' :: Eq a => a -> [a] ->  Int
 elemIndex' x = fromMaybe(-1).elemIndex x
 
+--property to check that all elements are either Lower case or Upper case alphabet letters
+prop_Alpha :: ([Char] -> [Char]) -> String -> Bool
+prop_Alpha  f x = filter (\x -> elem x alphabetUp || elem x alphabetLo)  (f x) /= []  
 
+
+--property to check whether the length of the rot13 product is the same as the input 
+prop_length  :: ([Char] -> [Char]) -> String -> Bool
+prop_length f x = length  (f x) ==length x  
 
 rot13 ::  [Char] -> [Char]
 --case when list is empty
@@ -42,9 +49,12 @@ rot13 (y:ys)  = if (isLower y) then
                     --if the the index of the letter in the alphabets list and check if the index + 13 is greater than 26, 
                     --than in order to go to the start of the list  we subtract from the new index 26 position in order to get aligned from the start of list
                     else  alphabetLo !!  (((elemIndex' y alphabetLo ) + 13)-26) : rot13 ys 
-                else
+                else if(isUpper y) then
                     --Here is the same procedure as for lower case letter, but now we search in the Uppercase alphabet list
                     if (((elemIndex' y alphabetUp ) + 13)<26) 
                             then alphabetUp !! ((elemIndex' y alphabetUp ) + 13) : rot13 ys
                      else  alphabetUp !!  (((elemIndex' y alphabetUp ) + 13)-26) : rot13 ys 
+                else []
+
+
 
