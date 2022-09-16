@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="../pandoc.css" type="text/css" />
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+</head>
+<body>
+<h1 id="lab-2-software-specification-and-testing">Lab 2 Software Specification and Testing</h1>
+<ul>
+  <li><b>Dont forget</b> to follow the naming conventions as indicated in Lab 1.</li>
+  <li>Please indicate the time spent on each exercise  &#128512; (ominous smiling emoji)</li>
+</ul>
+<hr />
+<div class="sourceCode">
+<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell">
+<span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Data.List</span>
+<span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Data.Char</span>
+<span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">System.Random</span>
+<span class="ot">&gt;</span> <span class="kw">import </span><span class="dt">Test.QuickCheck</span></code></pre>
+</div>
+<p><strong>Useful logic notation</strong></p>
+<div class="sourceCode">
+<pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> infix <span class="dv">1</span> <span class="fu">--&gt;</span>
+<span class="ot">&gt;</span>
+<span class="ot">&gt; (--&gt;) ::</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+<span class="ot">&gt;</span> p <span class="fu">--&gt;</span> q <span class="fu">=</span> (not p) <span class="fu">||</span> q</code></pre>
+</div>
+<hr /><ol style="list-style-type: decimal;">
+  <li>
+    <p>Your programmer Red Curry has written the following function for generating lists of floating point numbers.</p>
+    <div class="sourceCode">
+      <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt; probs ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> [<span class="dt">Float</span>]
+        <span class="ot">&gt;</span> probs <span class="dv">0</span> <span class="fu">=</span> return []
+        <span class="ot">&gt;</span> probs n <span class="fu">=</span> <span class="kw">do</span>
+        <span class="ot">&gt;</span>              p <span class="ot">&lt;-</span> getStdRandom random
+        <span class="ot">&gt;</span>              ps <span class="ot">&lt;-</span> probs (n<span class="fu">-</span><span class="dv">1</span>)
+        <span class="ot">&gt;</span>              return (p<span class="fu">:</span>ps)</code></pre>
+      </div>
+      <p>He claims that these numbers are random in the open interval <span class="math inline">\((0..1)\)</span>. Your task is to test whether this claim is correct, by counting the numbers in the quartiles</p>
+      <p><span class="math inline">\((0..0.25), [0.25..0.5), [0.5..0.75), [0.75..1)\)</span></p>
+      <p>and checking whether the proportions between these are as expected.</p>
+      <p>E.g., if you generate 10000 numbers, then roughly 2500 of them should be in each quartile.</p>
+      <p>Implement this test, and report on the test results.</p>
+    </li>
+    </ol>
+<P><b>Deliverables</b>: Test, concise test report, indication of time spent</P>
+<hr /><ol start="2" style="list-style-type: decimal;">
+  <li>
+    <p><strong>Recognizing triangles</strong></p>
+    <p>Write a program (in Haskell) that takes a triple of integer values as arguments and gives as output one of the following statements:</p>
+    <ul>
+      <li>
+        <p><code>Not a triangle</code> (<code>Geen driehoek</code>) if the three numbers cannot occur as the lengths of the sides of triangle,</p>
+      </li>
+      <li>
+        <p><code>Equilateral</code> (<code>Gelijkzijdig</code>) if the three numbers are the lengths of the sides of an equilateral triangle,</p>
+      </li>
+      <li>
+        <p><code>Rectangular</code> (<code>Rechthoekig</code>) if the three numbers are the lengths of the sides of a rectangular triangle,</p>
+      </li>
+      <li>
+        <p><code>Isosceles</code> (<code>Gelijkbenig</code>) if the three numbers are the lengths of the sides of an isosceles (but not equilateral) triangle,</p>
+      </li>
+      <li>
+        <p><code>Other</code> (<code>Anders</code>) if the three numbers are the lengths of the sides of a triangle that is not equilateral, not rectangular, and not isosceles.</p>
+      </li>
+    </ul>
+    <p>Here is a useful datatype definition:</p>
+    <div class="sourceCode">
+      <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> <span class="kw">data</span> <span class="dt">Shape</span> <span class="fu">=</span> <span class="dt">NoTriangle</span> <span class="fu">|</span> <span class="dt">Equilateral</span>
+        <span class="ot">&gt;</span>            <span class="fu">|</span> <span class="dt">Isosceles</span>  <span class="fu">|</span> <span class="dt">Rectangular</span> <span class="fu">|</span> <span class="dt">Other</span> <span class="kw">deriving</span> (<span class="dt">Eq</span>,<span class="dt">Show</span>)</code></pre>
+      </div>
+      <p>Now define a function <code>triangle :: Integer -&gt; Integer -&gt; Integer -&gt; Shape</code> with the right properties.</p>
+      <p>You may wish to consult <a href="http://en.wikipedia.org/wiki/Triangle">wikipedia</a>. Indicate how you <em>tested</em> or <em>checked</em> the correctness of the program.</p>
+    </li>
+    </ol>
+<p><b>Deliverables</b>: Haskell program, concise test report, indication of time spent.</p>
+<hr /><ol start="3" style="list-style-type: decimal;">
+  <li>
+    <p><strong>Testing properties strength</strong></p>
+    <p>Considering the following predicate on test properties:</p>
+  <div class="sourceCode">
+    <pre class="sourceCode literate literatehaskell"><code class="sourceCode literatehaskell"><span class="ot">&gt;</span> stronger,<span class="ot"> weaker ::</span> [a] <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> <span class="dt">Bool</span>) <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+    <span class="ot">&gt;</span> stronger xs p q <span class="fu">=</span> forall xs (\ x <span class="ot">-&gt;</span> p x <span class="fu">--&gt;</span> q x)
+    <span class="ot">&gt;</span> weaker   xs p q <span class="fu">=</span> stronger xs q p </code></pre>
+  </div>
+<p>a) Implement all properties from the Exercise 3 from Workshop 2 as Haskell functions of type <code>Int -&gt; Bool</code>. Consider a small domain like <span class="math inline">\([(-10)..10]\)</span>.</p>
+<p>b) Provide a descending strength list of all the implemented properties.</p>
+</li>
+</ol>
+<p><b>Deliverables</b>: Implementation of properties, descending strength list of said implementation(figure out how to print them, and provide your answer in a comment too), indication of time spent.</p>
+<hr /><ol start="4" style="list-style-type: decimal;">
+  <li>
+    <p><strong>Recognizing Permutations</strong></p>
+    <p>A permutation of a finite list is another finite list with the same elements, but possibly in a different order. For example, [3,2,1] is a permutation of [1,2,3], but [2,2,0] is not. Write a function</p>
+    <pre><code> isPermutation :: Eq a =&gt; [a] -&gt; [a] -&gt; Bool</code></pre>
+    <p>that returns <code>True</code> if its arguments are permutations of each other.</p>
+    <p>Next, define some testable properties for this function, and use a number of well-chosen lists to test <code>isPermutation</code>. You may assume that your input lists do not contain duplicates. What does this mean for your testing procedure?</p>
+    <p>Provide an ordered list of properties by strength using the weaker and stronger definitions.</p>
+    <p>Can you automate the test process? Use the techniques presented in this week's lecture. Also use QuickCheck.</p>
+  </li>
+  </ol>
+<p><b>Deliverables</b>: Haskell program, concise test report, indication of time spent.</p>
+<hr /><ol start="5" style="list-style-type: decimal;">
+  <li>
+    <p><strong>Recognizing and generating derangements</strong></p>
+    <p>A derangement of the list <code>[0..n-1]</code> of natural numbers is a permutation <span class="math inline">\(\pi\)</span> of the list with the property that for no <span class="math inline">\(x\)</span> in the list <span class="math inline">\(\pi(x) = x\)</span>. This is what you need if you prepare for <em>Sinterklaas</em> with a group of friends, where you want to avoid the situation that someone has to buy a surprise gift for him- or herself.</p>
+<p>Give a Haskell implementation of a property <code>isDerangement :: Eq a => [a] -> [a] -> Bool</code> that checks whether one list is a derangement of another one.</p>
+<p>Give a Haskell implementation of a function <code>deran:: Int -> [[Int]]</code> that generates a list of all derangements of the list <code>[0..n-1]</code>.</p>
+<p><strong>Note</strong> You may wish to use the <code>permutations</code> function from Data.List, or the <code>perms</code> function from workshop 1.</p>
+<p>Next, define some testable properties for the <code>isDerangement</code> function, and use some well-chosen integer lists to test <code>isDerangement</code>.</p>
+<p>Provide an ordered list of properties by strength using the weaker and stronger definitions.</p>
+<p>Can you automate the test process?</p>
+</li>
+</ol>
+<p><b>Deliverables</b>: Haskell program, concise test report, indication of time spent.</p>
+<hr /><ol start="6" style="list-style-type: decimal;">
+  <li>
+    <p><strong>Implementing and testing ROT13 encoding</strong></p>
+    <p><a href="https://en.wikipedia.org/wiki/ROT13">ROT13</a> is a single letter substitution cipher that is used in online forums for hiding spoilers.</p>
+    <p>See also <a href="https://www.rot13.com/">www.rot13.com</a>.</p>
+    <p>First, give a <em>specification</em> of ROT13.</p>
+    <p>Next, give a <em>simple implementation</em> of ROT13 (<code>rot13 :: [Char] -&gt; [Char]</code>).</p>
+    <p>Finally, turn the specification into a <em>series of QuickCheck testable properties</em>, and use these to test your implementation.</p>
+  </li>
+  </ol>
+  <p><b>Deliverables</b>: Haskell program, concise test report, indication of time spent.</p>
+<hr /><ol start="7" style="list-style-type: decimal;">
+  <li>
+    <p><strong>Implementing and testing IBAN validation</strong></p>
+    <p>The International Bank Account Number (IBAN) was designed to facilitate international money transfer and uniquely identify bank accounts worldwide. It is described <a href="https://en.wikipedia.org/wiki/International_Bank_Account_Number">here</a>, including a procedure for validating IBAN codes. Write a function</p>
+    <pre><code>iban :: String -&gt; Bool</code></pre>
+    <p>that implements this validation procedure.</p>
+    <p>Next, test your implementation using some suitable <a href="https://www.iban.com/structure">list of examples</a>.</p>
+    <p><strong>Note</strong> It is not enough to test only with <em>correct</em> examples. You should invent a way to test with <em>incorrect</em> examples also.</p>
+    <p>Can you automate the test process?</p>
+  </li>
+  </ol>
+<p><b>Deliverables</b>: Haskell program, concise test report, indication of time spent.</p>
+<hr /><ol start="8" style="list-style-type: decimal;">
+  <li> <p><strong>Bonus</strong></p>
+  <p>Solve three assignments of your choice from <a href="http://projecteuler.net">Project Euler</a> in Haskell. Solving higher number tasks will account for more bonus points.</p>
+  </li>
+  </ol>
+<hr />
+<div id="refs" class="references"></div>
+</body>
+</html>
