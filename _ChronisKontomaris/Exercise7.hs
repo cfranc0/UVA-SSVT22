@@ -5,7 +5,8 @@ import Data.List
 --isAmericanExpress, isMaster, isVisa ::  Integer -> Bool
 
 -- For Master card we need to check for the card number to be 16 characters long and to contain numbers 51-55
--- For visa cards we need to check that a card  it is 13 or 16 digits and starts with number 4
+-- For visa card we would use head function to check on the first digit that it is indeed a 4 
+--  //   //   // we would also check the length of the nuber is 13 or 16 digits as well as the luhn algorithm for all the digits 
 --For american express we should check the carrds to be 15 digits and start with number 34 or 37 
 
 --Here is the implementation of a simple solution to get the digits in list from the given card number using the map and show functions
