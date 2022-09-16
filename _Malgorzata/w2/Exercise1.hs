@@ -49,7 +49,7 @@ is probs is working properly.
 We see that the number for each quartile is not exactly 2500 (in case of n = 10000), but this is okay.
 For example if we want four random numbers from 1-4, we won't always get the 1,2,3,4.
 Everytime every number has the same probability of occurrence.
-The bigger the set the greater the chances of a more even distribution.
+The more times generate number the greater the chances of a more even distribution.
 In mathematics it is called a Continuous uniform distribution.
 
   -}
