@@ -1,38 +1,71 @@
+-- Time spent: 4h
+module Exercise4 where
 import Data.List
 import Test.QuickCheck
-import Test.QuickCheck.Test (test)
 
--- to recognize the permutation of the list, there are few conditions that needs to be met
---both lists need to have the same lenght, and they shoudl have the same elements
+{-
+    The isPermutation function makes sure the two lists are a permutation of
+    each other by leveraging the fact that they don't allow duplicates.
+    The first thing we do is make sure the lenght is the same. Secondly, we
+    check that the elements in one list are also in the other. We don't need to
+    do this both times for the two lists, as the absence of duplicates insures
+    that a missing number would be always detect as the number that replaced it
+    missing.
+-}
 isPermutation :: Eq a => [a] -> [a] -> Bool
-isPermutation a b = length a == length b && all (`elem` b) a && all (`elem` a) b
+isPermutation a b = length a == length b && all (`elem` b) a
 
--- Lists are the same size
-propertyLength :: Eq a => [a] -> [a] -> Bool
-propertyLength a b = length a == length b
+{-
+    The properties tested for the permutation are:
+    - Making sure the permutation of an empty list, which is itself, is still
+      correctly detected by the isPermutation function
+    - Checking that a permutation of a list with only one item, which is itself,
+      is correctly detected by the isPermutation function
+    - Checking that two lists of different length are immediately detected as
+      not being sublists
+    - Insuring that two lists generated in a way that makes them permutations of
+      each other are correctly detected as permutations
+-}
+emptyList = [] :: [Int]
 
--- All elements of a are also in the second list (b)
-propertyElemsOne :: Eq a => [a] -> [a] -> Bool
-propertyElemsOne a = all (`elem` a)
+prop_length0 :: Bool
+prop_length0 = isPermutation emptyList emptyList
 
--- All elements of b are also in the second list (a)
--- It is important to check it both ways a in b and b in a, in case they are different length
-propertyElemsTwo :: Eq a => [a] -> [a] -> Bool
-propertyElemsTwo b = all (`elem` b)
+prop_length1 :: Int -> Bool
+prop_length1 n = isPermutation [n] [n]
 
+prop_differentLenth :: [Int] -> Bool
+prop_differentLenth xs = case xs of
+    []     -> isPermutation xs xs
+    (x:xs) -> not $ isPermutation xs (x : xs)
 
-testWithOutput :: [Int] -> [Int] -> IO ()
-testWithOutput a b = putStrLn ("Testing " ++ show a ++ " and " ++ show b ++ ": " ++ show (isPermutation a b))
+{-
+    This next property is trying to verify that the function does return that a
+    list is a permutation if we know that it is.
+    
+    The first implementation that I created was this one:
+    prop_validPermutation xs = all (isPermutation xs) (permutations xs)
 
--- if we can assume there are no duplicates, there is less cases to check,
--- and we won't know whether the function will work with the duplicates.
-isPermutationTest = do                                    -- results :
-    testWithOutput [1,2,3] [1,2,3,4] -- different lengths    False
-    testWithOutput [1,2,3,4] [1,2,3]                      -- False
-    testWithOutput [1,2,3] [1,2,3] -- correct case           True
-    testWithOutput [] [1,2,3] -- for empty list              False
-    testWithOutput [] []                                  -- True
+    I mean, it does work.. It's just sooo incredibly compute intensive 🙈, as it
+    check that any permutation of any list is correctly detected by my function,
+    which can become a bit of a struggle when we start to consider lists with
+    more than a 4/5 (with 5 we are already at 5! = 120 possibilities).
 
+    The new approach utilizes simply makes sure that the list generate by
+    quickCheck is actually not empty, since we are already testing that, and it
+    pickes only up to 8 items.
+-}
 
--- We don't know how to provide an ordered list of properties by strenght
---The properties are hard do compare.
+prop_validPermutation :: NonEmptyList Int -> Bool
+prop_validPermutation (NonEmpty xs) = all (isPermutation (take 8 xs)) (permutations (take 8 xs))
+    
+{-
+    I would rate the properties from the weakest to the stringest as:
+    1. prop_validPermutation and prop_differentLenght since whatever list is
+       allowed
+    2. prop_length1 since whatever integer, inside a list, is valid
+    3. prop_length0 since there is only one possible valid choice
+
+    The testing process can be automated, utilizing quickCheck and the provided
+    properties.
+-}

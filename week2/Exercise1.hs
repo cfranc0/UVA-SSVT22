@@ -21,8 +21,6 @@ main = do
   return $ testProbs y
 
   {-
-  We are the group of 3 people
-
   Time spent: 1,5h
   The function testProbs returns how many numbers are in each quartile. First argument
   of the tuple responds to first quartile (0..0.25), the second argument to the second
