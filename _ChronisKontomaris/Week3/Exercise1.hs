@@ -12,7 +12,7 @@ contradiction :: Form->Bool
 contradiction f=all(\v -> not (evl v f) )(allVals f )
 
 
---We use implication as the truth table has the same output when   
+--We use implication as the truth table has the same output   
 entails :: Form->Form-> Bool
 entails fex1 fex2 = all(\v -> evl v (Impl fex1 fex2))(allVals (Impl fex1 fex2))
 
