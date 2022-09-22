@@ -1,4 +1,4 @@
-import Lecture3
+import Lecture3 ( form1, form2, form3, parse, Form )
 import Exercise1
 
 -- we check for each parsed form which is given in type [Form] (from the "parse" function given in the Lecture.hs) whether is the same as the normal Form
