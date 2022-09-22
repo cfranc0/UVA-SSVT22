@@ -1,4 +1,5 @@
-
+module Exercise1
+where 
 import Lecture3
 --Exercise1 
 -- since we have the satisfiable function that checks if a Form is satiasfiable,

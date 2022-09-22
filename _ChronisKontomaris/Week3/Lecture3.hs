@@ -6,6 +6,7 @@ where
 import Data.List
 import Data.Char
 import Test.QuickCheck
+import Test.QuickCheck.Poly (B)
 
 infix 1 --> 
 (-->) :: Bool -> Bool -> Bool
@@ -112,6 +113,7 @@ data Form = Prop Name
 
 
 
+
 instance Show Form where 
   show (Prop x)   = show x
   show (Neg f)    = '-' : show f 
@@ -180,11 +182,6 @@ evl xs (Equiv f1 f2) = evl xs f1 == evl xs f2
 
 satisfiable :: Form -> Bool
 satisfiable f = any (\ v -> evl v f) (allVals f)
-
-
-
-
-
 
 
 data Token 
