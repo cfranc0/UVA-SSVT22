@@ -1,6 +1,7 @@
 module Exercise3 where
 import Lecture3
 
+-- Time spent: 60 minutes
 
 distribute :: Form -> Form
 distribute (Dsj [f1, Cnj [f2,f3]]) = Cnj [left, right]

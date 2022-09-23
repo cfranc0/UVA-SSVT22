@@ -6,6 +6,7 @@ import Test.QuickCheck
 import Data.List
 import Test.QuickCheck (Positive, Property)
 
+-- Time spent: 90minutes
 
 sub :: Form -> Set Form
 sub (Prop x) = Set [Prop x]

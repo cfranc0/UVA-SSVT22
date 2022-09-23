@@ -4,6 +4,8 @@ import Test.QuickCheck
 import Control.Monad
 import SetOrd
 
+-- Time spent: 60 minutes
+
 instance Arbitrary Form where
     arbitrary = Prop <$> choose (1,9)
 
