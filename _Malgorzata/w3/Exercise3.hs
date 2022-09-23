@@ -24,4 +24,6 @@ to negations of props only, repeatedly using De'Morgans laws, example:
 ~(B v C) to (~B) ^ (~C)
 Finally, distribute function changes nested cnj within dsj, example:
 A ^ (B v (D ^ E)) to (A) ^ (B v D) ^ (B v E)
+source:
+https://en.wikipedia.org/wiki/Conjunctive_normal_form
 -}
