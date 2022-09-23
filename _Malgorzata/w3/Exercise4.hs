@@ -6,11 +6,14 @@ import SetOrd
 
 -- Time spent: 60 minutes
 
+-- we are generating Props from 0-9, because Neg doesn't work for
+-- negative values, it returns for example --1 for -1.
 instance Arbitrary Form where
-    arbitrary = Prop <$> choose (1,9)
+    arbitrary = Prop <$> choose (0,9)
 
 genForm = sized genForm'
 
+-- generator for formulas
 genForm' :: Int -> Gen Form
 genForm' 0 = arbitrary
 genForm' n | n>0 =
