@@ -1,5 +1,6 @@
 module Exercise4 where
 import Lecture3
+import Exercise3
 import Test.QuickCheck
 import Control.Monad
 import SetOrd
@@ -29,3 +30,11 @@ twoArgCnj x y = Cnj [x, y]
 
 twoArgDsj :: Form -> Form -> Form
 twoArgDsj x y = Dsj [x, y]
+
+-- in this test we are checking if the evaluated value of the formula equals to the evaluated
+-- value of formula in cnf format.
+testEval :: Form -> Bool
+testEval f = all (\x -> evl x f == evl x (cnf f)) values
+    where values = allVals f
+    
+testCnf = forAll genForm $ \x -> testEval x
