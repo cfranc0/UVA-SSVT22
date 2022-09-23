@@ -6,6 +6,7 @@ import Test.QuickCheck
 import Data.List
 import Test.QuickCheck (Positive, Property)
 
+-- Time spent: 90minutes
 
 sub :: Form -> Set Form
 sub (Prop x) = Set [Prop x]
@@ -17,11 +18,11 @@ sub f@(Equiv f1 f2) = unionSet ( unionSet (Set [f]) (sub f1)) (sub f2)
 
 
 -- The set of the formula consisting one atom is a set of this atom
-propSetTest :: Int -> Bool
-propSetTest x = sub (Prop x) == Set [Prop x]
+propPropTest :: Int -> Bool
+propPropTest x = sub (Prop x) == Set [Prop x]
 
 --
--- Testing whether the sub-formulas for formula -p ^ p is {p, Neg p, -p Cnj p}
+-- Testing whether the sub-formulas for formula -p ^ -q is {p, Neg p, q, Neg q, -p Cnj -q}
 propFormTest :: Int -> Int -> Property
 propFormTest x y = (x >=0 && y >= 0) ==> set1 `subSet` set2 && set2 `subSet` set1
     where
@@ -50,6 +51,17 @@ nsub :: Form -> Int
 nsub f = nsub' (sub f) 0
 
 
+-- The number of subformulas of the formula consisting one atom equals 1
+propPropTest' :: Int -> Bool
+propPropTest' x = nsub (Prop x) == 1
+
+
+-- Testing whether the number of sub-formulas for formula -p ^ -q is 5
+propFormTest' :: Int -> Int -> Property
+propFormTest' x y = (x >=0 && y >= 0) ==> nsub (Cnj [Neg px, Neg py]) == 5
+    where
+    px = Prop x
+    py = Prop y
 
 
 
