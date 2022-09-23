@@ -8,16 +8,16 @@ import Lecture3
 -- Satisfiable is given in the lecture slides
 satisfiable :: Form -> Bool
 satisfiable f = any (\ v -> evl v f) (allVals f)
-
--- Contradiction is the oppostite of satisfiable
-contradiction :: Form -> Bool
-contradiction f = not (satiasfiable f)
     
 -- A tautology is a formula which is satisfied by all valuations
 -- This means that for all possibile valuations of the formula f, they have to
 -- evaluate to true
 tautology :: Form -> Bool
 tautology f = all (\v -> evl v f) (allVals f)
+
+-- Contradiction is the oppostite of tautology
+contradiction :: Form -> Bool
+contradiction f = not (tautology f)
 
 -- | logical entailment 
 {-
