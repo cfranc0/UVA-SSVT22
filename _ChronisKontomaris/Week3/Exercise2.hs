@@ -1,3 +1,6 @@
+-- Time spent: 90 minutes --
+
+
 import Lecture3 ( form1, form2, form3, parse, Form )
 import Exercise1
 

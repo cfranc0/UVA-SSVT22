@@ -1,3 +1,5 @@
+-- Time spent: 90 minutes --
+
 module Exercise1
 where 
 import Lecture3
