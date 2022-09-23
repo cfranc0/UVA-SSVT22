@@ -1,7 +1,10 @@
+-- Time spent: 90 minutes --
+
 module Exercise1
 where 
 import Lecture3
---Exercise1 
+
+
 -- since we have the satisfiable function that checks if a Form is satiasfiable,
 -- by checking if for any of  all the examples of valuation can give true
 -- So for the tautology we just go through all the examples of valuation and check for that it is true for every example 
