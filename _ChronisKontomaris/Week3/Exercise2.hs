@@ -1,8 +1,13 @@
 -- Time spent: 90 minutes --
 
+<<<<<<< HEAD
 
 import Lecture3 ( form1, form2, form3, parse, Form )
+=======
+import Lecture3
+>>>>>>> 9bb8dee3f85932dcce61344367c4f62dcc750ce0
 import Exercise1
+
 
 -- we check for each parsed form which is given in type [Form] (from the "parse" function given in the Lecture.hs) whether is the same as the normal Form
 parsercheck :: [Form]->Form->Bool
