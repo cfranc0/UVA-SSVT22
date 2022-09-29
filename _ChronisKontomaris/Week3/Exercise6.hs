@@ -1,11 +1,8 @@
 -- Time spent: 180 minutes --
 
 
-<<<<<<< HEAD
 import Lecture3 ( parse, Form(Dsj, Cnj, Neg, Prop) )
-=======
 import Lecture3
->>>>>>> 9bb8dee3f85932dcce61344367c4f62dcc750ce0
 
 
 type Clause=[Int]
