@@ -1,4 +1,10 @@
+
+module Exercise1
+where 
+
 import LTS
+import Test.QuickCheck
+
 
 validateLTS :: LTS -> Bool
 validateLTS ([],_, _, _)=False
