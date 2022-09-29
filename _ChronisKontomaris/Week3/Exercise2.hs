@@ -1,11 +1,8 @@
 -- Time spent: 90 minutes --
 
-<<<<<<< HEAD
 
 import Lecture3 ( form1, form2, form3, parse, Form )
-=======
 import Lecture3
->>>>>>> 9bb8dee3f85932dcce61344367c4f62dcc750ce0
 import Exercise1
 
 
