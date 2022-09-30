@@ -1,8 +1,9 @@
-
+-- Time spent: 200 minutes
 
 module Exercise4
 where 
 import LTS
+--we suppose that the given labels do not contain the characters "?" and "!" for input and output
 
 --implementation of the after infix funtion
 after :: IOLTS ->[Label]-> [State]
@@ -28,5 +29,6 @@ after'  (states,labels,transitions,state) (x:xs)=
         [ z| (r,y,z)<-transitions,y==x && r==state]
 
 
-
-
+--example usage: 
+-- > out coffeeImpl1 ( coffeeImpl1 `after` ["coin"])
+-- >["coffee"]
