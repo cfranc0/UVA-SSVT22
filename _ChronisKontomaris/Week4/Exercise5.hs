@@ -1,5 +1,9 @@
+
+-- Time spent: 200 minutes
+
 import Exercise4
 import LTS
+import Data.List
 
 --here we have the out funcion which takes an IOLTS set and a state list and gives it to our secondary function out' as an LTS set
 out :: IOLTS->[State] ->[Label]
