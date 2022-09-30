@@ -1,5 +1,5 @@
 -- Time spent: 60 minutes
-
+--We are a group of three persons 
 module Exercise1
 where 
 
