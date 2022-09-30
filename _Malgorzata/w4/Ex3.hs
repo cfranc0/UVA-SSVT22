@@ -7,10 +7,22 @@ type Label = String
 type Path = [Label]
 type Edge = (Vertex, Label, Vertex)
 type Graph = [Edge]
-a = [(1,"Spritz",2),(2,"Martini",3),(2,"Gin Tonic",4),(4,"Cuba Libre",1)]
+
+b = [1, 2, 3]
+a = [(1,"?coin",2),(2,"!coffee",4),(2,"!tea",3)]
 
 type BfsResult = [Path]
 type BfsState = (Seq (Vertex, Path), [Path])
+
+isOutput :: Edge -> Bool
+isOutput (_, label, _) = head label == '!'
+
+quiesencent :: Vertex -> Graph -> Bool
+quiesencent v graph = foldr (\x acc -> if isOutput(x) then False else True) True (getEdges v graph)
+
+addQuiesence :: [Vertex] -> Graph -> Graph
+addQuiesence vertices graph = [(x,"delta",x) | x <- vs ]++graph
+  where vs = L.filter (\x -> quiesencent x graph) vertices
 
 getEdges :: Vertex -> Graph -> [Edge]
 getEdges v graph = L.filter (\(x,_,_) -> x == v) graph
@@ -27,7 +39,7 @@ bfs graph = do
     else do
       let (top :< rest) = view
       let (currentVertex, path) = top
-      if L.length path > 10
+      if L.length path > 4
         then return result
       else do
         let newQueue = rest
@@ -38,4 +50,4 @@ bfs graph = do
 
 startState = (fromList [(1, [])], [])
 
-main = print $ evalState (bfs a) startState
+main = print $ evalState (bfs (addQuiesence b a)) startState
