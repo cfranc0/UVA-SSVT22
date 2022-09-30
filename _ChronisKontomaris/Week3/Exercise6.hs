@@ -1,6 +1,7 @@
 -- Time spent: 180 minutes --
 
 
+import Lecture3 ( parse, Form(Dsj, Cnj, Neg, Prop) )
 import Lecture3
 
 
