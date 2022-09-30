@@ -1,3 +1,4 @@
+-- Time spent: 60 minutes
 
 module Exercise1
 where 
