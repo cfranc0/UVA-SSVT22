@@ -1,4 +1,5 @@
 module FitSpec where
+  
 import Test.FitSpec
 
 multiplicationTable :: Integer -> [Integer]
@@ -40,9 +41,9 @@ properties multiplicationTable =
   , property $ prop_moduloIsZero multiplicationTable
   ]
 
-testFitSpec = mainWith args { names = ["multiplicationTable x"]
-                     , nMutants = 4000
-                     , nTests = 4000
+testFitSpec = mainWith args { names = ["multiplicationTable 1"]
+                     , nMutants = 10000
+                     , nTests = 500
                      , timeout = 0
                      }
                 (multiplicationTable :: Integer -> [Integer])

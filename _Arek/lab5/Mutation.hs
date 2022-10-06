@@ -1,4 +1,5 @@
 module Mutation where
+  
 import Test.QuickCheck
 import Data.List
 import Data.Maybe
@@ -24,3 +25,4 @@ addElements xs = do
 
 removeElements :: [Integer] -> Gen [Integer]
 removeElements xs = choose (1, length xs - 1) >>= \x -> return $ take x xs
+
