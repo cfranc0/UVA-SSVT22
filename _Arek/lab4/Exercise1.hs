@@ -4,7 +4,7 @@ import Data.List
 import LTS    
 -- import Test.QuickCheck
 
--- Time spent: x minutes -- start 21:25
+-- Time spent: 180 minutes -- start 21:25 -- finish 00:30
 
 -- The IOLTS datatype allows, by definition, for the creation of IOLTS's that are not valid. 
 -- Make a list of factors that result in invalid IOLTS's. Write a function validateLTS :: IOLTS -> Bool 
@@ -17,10 +17,16 @@ import LTS
 
 -- List of factors that result in invalid IOLTS:
 --   Li and Lu must not have any common elements
+--   q0 must be an element of Q
+--   state lists must be non-empty
 
 -- To test, we can generate IOLTS which should break the rules above and result in FALSE
+-- 1)
 -- createIOLTS [(0, "?but", 1), (1, "?liq", 1), (1, "!liq", 2), (2, "?liq", 2)] -> ([0,1,2],["but","liq"],["liq"],[(0,"but",1),(1,"liq",2),(1,"liq",1),(2,"liq",2)],0)
--- ["but","liq"],["liq"] liq is repeated, therefore the IOLTS is invalid
+-- ["but","liq"],["liq"] liq is repeated, therefore the IOLTS is invalid and function returns FALSE
+--2)
+-- createIOLTS [(0," ", 1), (1," ", 1), (1," ", 2), (2," ", 2)] -> ([0,1,2],[],[],[(0," ",1),(1," ",1),(1," ",2),(2," ",2)],0)
+-- [],[], input and output sets are empty, therefore the IOLTS is invalid and function returns FALSE
 
 duplicates :: Eq a => [a] -> [a] -> Bool
 duplicates a b = length (nub l) /= length l
@@ -30,4 +36,6 @@ duplicates a b = length (nub l) /= length l
 validateLTS :: IOLTS -> Bool
 validateLTS (a, b, c, d, e) 
     | duplicates b c = False
-    | otherwise = True
+    |  e `notElem` a = False
+    | not (not (null b) && not (null c)) = False
+    | otherwise = True 
