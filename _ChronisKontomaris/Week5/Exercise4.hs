@@ -34,5 +34,4 @@ strength n props fun mutators = do
                 j<- generate $ countEverything n props fun mutators;
                 
                 --j<- generate $ countEverything (n `div` toInteger (length mutators)) props fun mutators;
-                 --if (fromIntegral t/ fromIntegral j)==0 then return 100 else return (fromIntegral t/ fromIntegral j)}
                 return ((1-(fromIntegral t / fromIntegral j))*100)}
