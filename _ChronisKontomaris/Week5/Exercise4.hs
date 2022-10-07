@@ -1,8 +1,11 @@
+module Exercise4
+where 
 import MultiplicationTable
 import Test.QuickCheck
 import Data.List
 import Mutation
 import Exercise2
+
 import Data.Text.Internal.Read (digitToInt)
 
 
@@ -14,8 +17,6 @@ import Data.Text.Internal.Read (digitToInt)
 countEverything :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) -> [([Integer] -> Gen [Integer])] -> Gen Int
 countEverything n props fun mutator = sum <$> mapM (countAll n props fun ) mutators
                -- where  input = n `div` toInteger (length mutators)
-
-
 
 
 
@@ -35,7 +36,7 @@ strength n props fun mutators = do
                 --mutantsNumber<- generate $ countEverything (n `div` toInteger (length mutators) )props fun mutators;
                 mutantsNumber<- generate $ countEverything n props fun mutators;
                 --j<- generate $ countEverything (n `div` toInteger (length mutators)) props fun mutators;
-                return (((fromIntegral (mutantsNumber - survivors)*100 / fromIntegral mutantsNumber)))}
+                return (((fromIntegral (mutantsNumber - survivors)*100 / fromIntegral mutantsNumber)))} 
 
 
 
