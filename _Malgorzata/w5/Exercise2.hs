@@ -26,4 +26,7 @@ countS n props fut mutator = length . filter (== True ) <$> mapM (survivor fut p
 survivor :: (Integer -> [Integer]) -> [[Integer] -> Integer -> Bool] -> ([Integer] -> Gen [Integer]) -> Integer -> Gen Bool
 survivor fut props mutator input =  all (== True) <$> mutate' mutator props fut input
 
--- generate $ countSurvivors 4 [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput] multiplicationTable [addElements]
+-- generate $ countSurvivors 30 [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput] multiplicationTable [anyList, removeElements, addElements, shuffleList, reverseList, cycleList, multiplyList]
+
+-- It was given on the lab, that all 5 properties should kill all the mutants. As I tested the function countSurvivors it also showed that for
+-- the whole set of properties it returned 0 survivors. If i provided no properties, the number of survived mutants was equal to the input number of mutants
