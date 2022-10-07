@@ -5,6 +5,8 @@ import Data.List
 import Mutation
 import Data.Text.Internal.Read (digitToInt)
 
+--time spent 420minutes
+
 
 -- This function sums the number of all survived mutants from all mutators for all inputs and properties
 -- We need to divide the number of mutants by the number of mutators, because let's say n == 100, and we have 2 mutators.
