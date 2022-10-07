@@ -49,12 +49,3 @@ removeElements xs = choose (1, length xs) >>= \x -> return $ take x xs
 -- Any list
 anyList :: [Integer] -> Gen [Integer]
 anyList xs = arbitrary
-
-reverseList :: [Integer] -> Gen [Integer]
-reverseList xs = do 
-      return $ reverse xs
-
-shuffleList :: [Integer] -> Gen [Integer]
-shuffleList = shuffle 
-
-mutators = [anyList, removeElements, addElements]
