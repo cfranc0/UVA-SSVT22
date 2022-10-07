@@ -8,6 +8,7 @@ import Test.QuickCheck
 import Data.List
 import Mutation
 import Exercise2
+import Exercise1
 
 import Data.Text.Internal.Read (digitToInt)
 

@@ -1,4 +1,6 @@
 module Exercise2 where
+
+import Exercise1
 import MultiplicationTable
 import Test.QuickCheck
 import Data.List
