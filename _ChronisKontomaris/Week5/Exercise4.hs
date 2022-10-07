@@ -12,7 +12,10 @@ import Data.Text.Internal.Read (digitToInt)
 
 --count the number of all cases 
 countEverything :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) -> [([Integer] -> Gen [Integer])] -> Gen Int
-countEverything n props fun mutator = sum <$> mapM (countAll n props fun ) mutators
+countEverything n props fun mutator = sum <$> mapM (countAll input props fun ) mutators
+                where  input = n `div` toInteger (length mutators)
+
+
 
 
 
@@ -28,6 +31,8 @@ strength :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) 
 strength n props fun mutators = do 
                  {
                 t<- generate $ countSurvivors n props fun mutators ;
-                j<- generate $ countEverything n props fun mutators;
+                --j<- generate $ countEverything n props fun mutators;
+                --number <- (fromIntegral n / fromIntegral (length mutators));
+                j <- generate $ countEverything n props fun mutators;
                 return (fromIntegral t/ fromIntegral j)}
                     
