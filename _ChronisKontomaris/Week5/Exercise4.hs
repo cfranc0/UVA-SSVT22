@@ -30,8 +30,8 @@ countAll n props fun mutator = length  <$> mapM (survivor fun props mutator) [1 
 strength :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) -> [([Integer] -> Gen [Integer])]-> IO Float
 strength n props fun mutators = do 
                  {
-                t<- generate $ countSurvivors n props fun mutators ;
-                j<- generate $ countEverything n props fun mutators;
+                survivors<- generate $ countSurvivors n props fun mutators ;
+                mutantsNumber<- generate $ countEverything n props fun mutators;
                 
                 --j<- generate $ countEverything (n `div` toInteger (length mutators)) props fun mutators;
-                return ((1-(fromIntegral t / fromIntegral j))*100)}
+                return (((fromIntegral (mutantsNumber - survivors)*100 / fromIntegral mutantsNumber)))}
