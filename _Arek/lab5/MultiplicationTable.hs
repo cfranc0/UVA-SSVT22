@@ -32,3 +32,6 @@ p --> q = not p || q
 
 multiplicationTableProps :: [[Integer] -> Integer -> Bool]
 multiplicationTableProps = [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput, prop_linear, prop_moduloIsZero]
+
+mProp :: [Integer] -> Integer -> Bool
+mProp = prop_tenElements

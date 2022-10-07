@@ -41,6 +41,8 @@ properties multiplicationTable =
   , property $ prop_moduloIsZero multiplicationTable
   ]
 
+proplist = [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput, prop_linear, prop_moduloIsZero]
+
 testFitSpec = mainWith args { names = ["multiplicationTable 1"]
                      , nMutants = 10000
                      , nTests = 500
