@@ -13,7 +13,7 @@ import Data.Text.Internal.Read (digitToInt)
 --count the number of all cases 
 countEverything :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) -> [([Integer] -> Gen [Integer])] -> Gen Int
 countEverything n props fun mutator = sum <$> mapM (countAll n props fun ) mutators
-         --       where  input = n `div` toInteger (length mutators)
+               -- where  input = n `div` toInteger (length mutators)
 
 
 
@@ -31,7 +31,18 @@ strength :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) 
 strength n props fun mutators = do 
                  {
                 survivors<- generate $ countSurvivors n props fun mutators ;
+
+                --mutantsNumber<- generate $ countEverything (n `div` toInteger (length mutators) )props fun mutators;
                 mutantsNumber<- generate $ countEverything n props fun mutators;
-                
                 --j<- generate $ countEverything (n `div` toInteger (length mutators)) props fun mutators;
                 return (((fromIntegral (mutantsNumber - survivors)*100 / fromIntegral mutantsNumber)))}
+
+
+
+--testing the function was implemented by running some examples and because they sometimes give different results from the generator , we repeated them to see their behaviour 
+--for example running generate $ sequence $ take 20 $ repeat $ countSurvivors 5 [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput, prop_linear, prop_moduloIsZero] multiplicationTable mutators 
+-- gvives [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0] , which means that in general we either get one or zero survivors
+--So for example here, generally it gives 1 survivor, so 100% or 1 survivor which is ((15-1)*100)/15=93,333
+-- then in order to test our implementation we ran our strength function with the following command :
+-- sequence $ take 20 $ repeat $ strength 5 [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput, prop_linear, prop_moduloIsZero] multiplicationTable mutators
+-- which outputs [100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,93.333336,100.0,100.0,100.0]
