@@ -1,3 +1,5 @@
+
+--time spent 400 minutes
 module Exercise3 where
 import Exercise2
 import MultiplicationTable
@@ -11,9 +13,6 @@ import CoreMonad (liftIOWithCount)
 
 
 
-
---minimal :: Integer -> [[[Integer] -> Integer -> Bool]] -> (Integer -> [Integer]) -> [([Integer] -> Gen [Integer])] -> Gen Int
---minimal n (props: ptopps) fun mutators = sum <$> mapM (countSurvivors n props fun ) mutators
 
 --We try to take all the possible sets of properties and their names ( We also checked that all the possible sets are in the same order as the sets of their names)
 --So we tried to extract for each one of the properties set their strength
@@ -69,11 +68,10 @@ minimal n (p:ps) = do  {
         --check for each one of the strengths if it 100 and return the index , otherwise go to the next property set
             if y==100 then  return n   else minimal (n+1) ps  ;
         }   
-        --minimal (n+1) ps
---minimal (p:ps) (x:xs) = x 
 
 
---Also tried with lamdas and do blocks inside them, but again didnt work 
+
+--Also tried some examples with lamdas and do blocks inside them, but again didnt work 
 
 --res= (\a b->  do {
 --    
