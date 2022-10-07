@@ -14,7 +14,6 @@ import Data.Text.Internal.Read (digitToInt)
 countEverything :: Integer -> [[Integer] -> Integer -> Bool] -> (Integer -> [Integer]) -> [([Integer] -> Gen [Integer])] -> Gen Int
 countEverything n props fun mutator = sum <$> mapM (countAll n props fun ) mutators
 
--- generate $ countSurvivors 4 [prop_tenElements, prop_firstElementIsInput, prop_sumIsTriangleNumberTimesInput] multiplicationTable [addElements]
 
 
 --take all cases : whether its survivor or not
