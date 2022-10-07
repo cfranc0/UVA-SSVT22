@@ -1,3 +1,6 @@
+--time spent 300 minutes
+
+
 module Exercise4
 where 
 import MultiplicationTable

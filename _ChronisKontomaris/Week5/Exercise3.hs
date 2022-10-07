@@ -1,3 +1,5 @@
+
+--time spent 400 minutes
 module Exercise3 where
 import Exercise2
 import MultiplicationTable
@@ -7,6 +9,8 @@ import Exercise4
 import Mutation
 import Data.Text.Internal.Read (digitToInt)
 import CoreMonad (liftIOWithCount)
+
+
 
 
 

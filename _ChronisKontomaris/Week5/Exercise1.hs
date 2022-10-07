@@ -3,6 +3,7 @@ import Data.List
 import MultiplicationTable
 import Data.Maybe
 import Debug.Trace
+--time spent 50 minutes
 
 --reverse all items in order to see how the property prop_firstElementIsInput would react 
 reversemut' :: [Integer] -> Gen [Integer]
