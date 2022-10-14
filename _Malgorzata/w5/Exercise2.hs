@@ -1,9 +1,13 @@
 module Exercise2 where
+
+import Exercise1
 import MultiplicationTable
 import Test.QuickCheck
 import Data.List
 import Mutation
 import Data.Text.Internal.Read (digitToInt)
+
+--time spent 420minutes
 
 
 -- This function sums the number of all survived mutants from all mutators for all inputs and properties
